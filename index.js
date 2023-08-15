@@ -1,53 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,700;1,400&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="styles.css" />
-    <title>Quick Tip</title>
-  </head>
+function formatTip (value) {
+    value = Math.ceil(value * 100) / 100
+    value = value.toFixed(2)
+    return '$' + value
+}
 
-  <body>
+function formatSplit (value) {
+    if (value == 1) return value + ' Person'
+    return value + ' People'
+}
 
-    <main oninput="update()">
-      <h1>Quick Tip</h1>
+function update (){
+    let bill = Number(document.getElementById ("yourBill").value)
+    let percentTip = document.getElementById ("tipInput").value
+    let split = document.getElementById ('splitInput').value
 
-      <section>
-        <div class="bill">
-          <label for="yourBill">Bill</label>
+    let tipValue = bill * (percentTip / 100)
+    let billTotal = bill + tipValue
+    let billEach = billTotal / split
+    console.log(billEach)
 
-          <input type="number" placeholder="Your bill" id="yourBill"/>
-        </div>
-
-        <div>
-          <div class="space-between">
-            <label for="">Select tip</label><span id="tipPercent" ></span>
-          </div>
-            <input type="range" value="0" id="tipInput" class="range">
-        </div>
-
-        <div class="space-between"><span>Tip</span><span id="tipValue"></span></div><hr/>
-
-        <div class="space-between total"><span>Total</span><span id="totalWithTip"></span></div>
-      </section>
-
-      <section>
-        <div>
-          <div class="space-between"><label for="splitInput">Split</label><span id="splitValue" ></span></div>
-            <input
-            type="range"
-            min="1"
-            max="10"
-            value="1"
-            id="splitInput"
-            class="range"/>
-        </div>
-
-        <div class="space-between"><span>Bill each</span><span id="billEach"></span></div>
-      </section>
-    </main>
-    <script src="index.js"></script>
-  </body>
-</html>
+    document.getElementById ('tipPercent').innerHTML = percentTip + '%'
+    document.getElementById ('tipValue').innerHTML = formatTip (tipValue)
+    document.getElementById ('totalWithTip').innerHTML = formatTip (billTotal)
+    document.getElementById ('splitValue').innerHTML = formatSplit (split)
+    document.getElementById ('billEach').innerHTML = formatTip (billTotal / split)
+}
