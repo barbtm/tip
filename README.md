@@ -1,0 +1,2 @@
+# tip
+Calculadora de gorjetas.
